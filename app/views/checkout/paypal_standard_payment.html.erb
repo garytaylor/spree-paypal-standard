@@ -27,9 +27,26 @@
     <% service.notify_url paypal_standard_notify_url(:payment_method_id=>pm.id) %>
     <% service.return_url paypal_standard_return_url %>
     <% service.item_name "Order from #{Spree::Config[:site_name]}" %>
+    <p>
+        You are being redirected to Paypal - please wait.
+    </p>
+    <noscript>
+        <p>Javascript does not appear to be enabled.  Please click on the button below to continue.</p>
+      <input type="submit" name="submit" value="submit">
+    </noscript>
+    <% if Rails.env=='development' %>
+        <p>You are running in development mode, so this form will not submit automatically.</p>
+        <p>Please press the button below to submit the form.</p>
+        <input type="submit" name="send_form" value="Submit">
+    <% end %>
 
-    <input type="submit" name="submit" value="submit">
+
     
+<% end %>
+<% unless Rails.env=='development' %>
+<script type="text/javascript">
+    document.forms[0].submit();
+</script>
 <% end %>
 
 
