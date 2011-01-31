@@ -1,0 +1,35 @@
+<% pm=@order.payment_method
+
+%>
+
+<% payment_service_for @order.number, @order.payment_method.preferred_merchant,
+                       :amount   => @order.total,
+                       :currency => @order.payment_method.preferred_currency_code,
+                       :service  => :paypal,
+                       :html     => {:id => 'payment-form'} do |service| %>
+
+    <% service.customer :first_name=>@order.bill_address.firstname, :last_name=> @order.bill_address.lastname, :phone=>@order.bill_address.phone, :email=>@order.email %>
+    <% service.billing_address :city     => @order.bill_address.city,
+                               :address1 => @order.bill_address.address1,
+                               :address2 => @order.bill_address.address2,
+                               :state    => @order.bill_address.state ? @order.bill_address.state.name : @order.bill_address.state_name,
+                               :country  => @order.bill_address.country.name,
+                               :zip      => @order.bill_address.zipcode %>
+    <% service.shipping_name  "#{@order.ship_address.firstname} #{@order.ship_address.lastname}"%>
+    <% service.shipping_tel @order.ship_address.phone %>
+    <% service.shipping_email @order.email %>
+    <% service.shipping_address :city     => @order.ship_address.city,
+                               :address1 => @order.ship_address.address1,
+                               :address2 => @order.ship_address.address2,
+                               :state    => @order.ship_address.state ? @order.ship_address.state.name : @order.ship_address.state_name,
+                               :country  => @order.ship_address.country.name,
+                               :zip      => @order.ship_address.zipcode %>
+    <% service.notify_url paypal_standard_notify_url(:payment_method_id=>pm.id) %>
+    <% service.return_url paypal_standard_return_url %>
+    <% service.item_name "Order from #{Spree::Config[:site_name]}" %>
+
+    <input type="submit" name="submit" value="submit">
+    
+<% end %>
+
+
