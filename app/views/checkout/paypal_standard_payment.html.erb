@@ -6,7 +6,7 @@
                        :amount   => @order.total,
                        :currency => @order.payment_method.preferred_currency_code,
                        :service  => :paypal,
-                       :html     => {:id => 'payment-form'} do |service| %>
+                       :html     => {:id => 'paymentForm'} do |service| %>
 
     <% service.customer :first_name=>@order.bill_address.firstname, :last_name=> @order.bill_address.lastname, :phone=>@order.bill_address.phone, :email=>@order.email %>
     <% service.billing_address :city     => @order.bill_address.city,
@@ -45,7 +45,7 @@
 <% end %>
 <% unless Rails.env=='development' %>
 <script type="text/javascript">
-    document.forms[0].submit();
+    document.paymentForm.submit();
 </script>
 <% end %>
 
