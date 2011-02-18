@@ -5,7 +5,7 @@
 
     <%= image_tag "creditcard.gif", :id => 'creditcard-image' %>
     <% param_prefix = "payment_source[#{payment_method.id}]" %>
-    <%= hidden_field_tag "state",'paid' %>
+    <%= hidden_field_tag "payment[state]",'completed' %>
     <div>
     </div>
 
