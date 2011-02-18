@@ -3,30 +3,16 @@
 
   <table class="index">
     <tr>
-      <th colspan="6"><%= t('card_details') %></th>
+      <th colspan="6">Payment Details - Paypal</th>
     </tr>
     <tr>
-      <td><label><%= t("card_number") %>:</label></td>
+      <td><label>Amount:</label></td>
       <td>
-        XXXX-XXXX-XXXX-<%= payment.source.display_number %>
+        <%= payment.amount %>
       </td>
-      <td><label><%= t("expiration") %>:</label></td>
+      <td><label>Status:</label></td>
       <td>
-        <%= payment.source.month %>/<%= payment.source.year %>
-      </td>
-      <td><label><%= t("card_code") %>:</label></td>
-      <td>
-        <%= payment.source.verification_value %>
-      </td>
-    </tr>
-    <tr>
-      <td><label><%= t("maestro_or_solo_cards") %>:</label></td>
-      <td>
-        <%= payment.source.issue_number %>
-      </td>
-      <td><label><%= t('start_date') %>:</label></td>
-      <td colspan="3">
-        <%= payment.source.start_month %>/<%= payment.source.start_year %>
+        <%= payment.state %>
       </td>
     </tr>
   </table>
