@@ -39,7 +39,7 @@ module Spree
       @order = ::Order.find_by_number(notify.item_id)
       if notify.acknowledge
        begin
-         redirect_to order_url(@order)
+         redirect_to thank_you_order_url(@order)
        rescue => e
          redirect_to '/'
        end
